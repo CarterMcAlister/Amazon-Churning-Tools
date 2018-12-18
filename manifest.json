@@ -27,10 +27,18 @@
     },
     {
       "matches": [
-        "https://www.amazon.com/*"
+        "https://www.amazon.com/asv/reload/order*"
       ],
       "js": [
         "src/inject/inject.js"
+      ]
+    },
+    {
+      "matches": [
+        "https://www.amazon.com/asv/reload/thank-you*"
+      ],
+      "js": [
+        "src/inject/reload-success.js"
       ]
     }
   ]

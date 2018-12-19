@@ -19,18 +19,11 @@
   "content_scripts": [
     {
       "matches": [
-        "https://www.amazon.com/*"
-      ],
-      "css": [
-        "src/inject/inject.css"
-      ]
-    },
-    {
-      "matches": [
         "https://www.amazon.com/asv/reload/order*"
       ],
       "js": [
-        "src/inject/inject.js"
+        "src/inject/utilities.js",
+        "src/inject/automate-reloads.js"
       ]
     },
     {
@@ -39,6 +32,16 @@
       ],
       "js": [
         "src/inject/reload-success.js"
+      ]
+    },
+    {
+      "matches": [
+        "https://www.amazon.com/gp/css/order-history*",
+        "https://www.amazon.com/gp/your-account/order-history*"
+      ],
+      "js": [
+        "src/inject/utilities.js",
+        "src/inject/archive-orders.js"
       ]
     }
   ]

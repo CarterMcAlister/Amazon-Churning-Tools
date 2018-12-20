@@ -3,6 +3,8 @@ chrome.extension.sendMessage({}, function (response) {
 	var readyStateCheckInterval = setInterval(function () {
 		if (document.readyState === "complete") {
 			clearInterval(readyStateCheckInterval);
+			
+            Utilities.setCardNicknames('.pmts-cc-detail', '.pmts-cc-issuer-name', '.pmts-cc-number');
 
 			const reloadPane = document.querySelector('#asv-manual-reload-form');
 

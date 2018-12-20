@@ -32,8 +32,36 @@ var Utilities = (function () {
         });
     }
 
+    const setCardNicknames = function (cardSectionSelector, cardNameSelector, cardDigitsSelector) {
+        const cardNames = document.querySelectorAll(cardSectionSelector);
+        cardNames.forEach((card) => {
+            const cardName = card.querySelector(cardNameSelector);
+            const cardLastFour = card.querySelector(cardDigitsSelector).textContent;
+
+            console.log(cardName, cardLastFour)
+
+            cardName.textContent = getCardNickname(cardLastFour);
+            
+            
+        })
+    }
+
+    const hash = function (value) {
+        return value.split('').reduce((prevHash, currVal) =>
+            (((prevHash << 5) - prevHash) + currVal.charCodeAt(0))|0, 0);     
+    }
+
     return {
         createElement: createElement,
-        whenElementReady: whenElementReady
+        whenElementReady: whenElementReady,
+        setCardNicknames: setCardNicknames,
+        hash: hash
     }
 })()
+
+// Utilities Internal Functions
+
+function getCardNickname(lastFourString) {
+    const cardLastFour = lastFourString.replace('ending in ', '');
+    return cardLastFour;
+}

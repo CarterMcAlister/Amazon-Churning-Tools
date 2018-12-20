@@ -16,6 +16,7 @@
     "tabs",
     "https://www.amazon.com/*"
   ],
+  "options_page": "options/options.html",
   "content_scripts": [
     {
       "matches": [
@@ -42,6 +43,16 @@
       "js": [
         "src/inject/utilities.js",
         "src/inject/archive-orders.js"
+      ]
+    },
+    {
+      "matches": [
+        "https://www.amazon.com/cpe/managepaymentmethods*",
+        "https://www.amazon.com/gp/buy*"
+      ],
+      "js": [
+        "src/inject/utilities.js",
+        "src/inject/show-card-nicknames.js"
       ]
     }
   ]

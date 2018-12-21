@@ -41,9 +41,20 @@ var Utilities = (function () {
             console.log(cardName, cardLastFour)
 
             cardName.textContent = getCardNickname(cardLastFour);
-            
-            
+
         })
+    }
+
+    // makes array of card digits and returns
+    const getCardDigits = function (cardSectionSelector, cardDigitsSelector) {
+        const cards = document.querySelectorAll(cardSectionSelector);
+        let cardDigits = [];
+        cards.forEach((card) => {
+            const cardLastFour = card.querySelector(cardDigitsSelector).textContent.replace('ending in ', '');
+            cardDigits.push(cardLastFour);
+        })
+        
+        return cardDigits;
     }
 
     const hash = function (value) {
@@ -58,7 +69,8 @@ var Utilities = (function () {
         whenElementReady: whenElementReady,
         setCardNicknames: setCardNicknames,
         hash: hash,
-        generateGuid: generateGuid
+        generateGuid: generateGuid,
+        getCardDigits: getCardDigits
     }
 })()
 

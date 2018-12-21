@@ -30,25 +30,3 @@ chrome.extension.sendMessage({}, function (response) {
 		}
 	}, 10);
 });
-
-// Utilities
-// IIFE injected before other scripts to be called by them.
-var Utilities = (function () {
-
-    var setCardNicknames = function () {
-        const cardNames = document.querySelectorAll('.pmts-cc-detail');
-        cardNames.forEach((card) => {
-            const cardName = card.querySelector('.pmts-cc-issuer-name');
-            const cardLastFour = card.querySelector('.pmts-cc-number');
-            console.log(cardLastFour);
-
-            cardName.textContent = 'test';
-            
-        })
-    }
-
-
-    return {
-        setCardNicknames: setCardNicknames
-    }
-})()

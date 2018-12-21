@@ -69,8 +69,19 @@ chrome.extension.sendMessage({}, function (response) {
 
 				}
 
+				
+
 			}
 
 		}
 	}, 10);
 });
+
+function getCardDigits() {
+	const cardDigits = Utilities.getCardDigits('.pmts-cc-detail', '.pmts-cc-number');
+	console.log(cardDigits)
+	chrome.runtime.sendMessage({
+		action: "getCardDigits",
+		numbers: cardDigits
+	});
+}

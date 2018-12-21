@@ -51,11 +51,14 @@ var Utilities = (function () {
             (((prevHash << 5) - prevHash) + currVal.charCodeAt(0))|0, 0);     
     }
 
+    const generateGuid = () => Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+
     return {
         createElement: createElement,
         whenElementReady: whenElementReady,
         setCardNicknames: setCardNicknames,
-        hash: hash
+        hash: hash,
+        generateGuid: generateGuid
     }
 })()
 

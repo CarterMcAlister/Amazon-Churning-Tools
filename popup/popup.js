@@ -2,8 +2,6 @@ const rowParent = document.querySelector('.js-row-parent');
 const saveBtn = document.querySelector('.js-save-values');
 saveBtn.addEventListener('click', saveValues);
 
-let cardData = [];
-
 
 restoreValues();
 
@@ -12,59 +10,36 @@ getCardsOnPage();
 //restoreValues();
 console.log('popup')
 
-//Listeners
+// Get card numbers on the page
 chrome.runtime.onMessage.addListener(function(request, sender) {
     console.log(request)
+    // Get stored card data
     if (request.action == "getCardDigits" && request.numbers) {
-        console.log(request.numbers)
-        request.numbers.forEach((cardNumber) => {
-            addRow(cardNumber);
+        chrome.storage.sync.get(['cardData'], (result) => {
+            console.log('savedData', result.cardData);
+            request.numbers.forEach((cardNumber) => {
+                const cardHash = Utilities.hash(cardNumber);
+                const cardNickname = result.cardData[cardHash] || '';
+                console.log(cardHash, cardNickname)
+                addRow(cardNumber, cardNickname);
+            })
         })
+        console.log(request.numbers)
+        
     } else {
         rowParent.textContent = 'No cards found on this page.'
     }
 })
 
 // fn start
-function addRow(cardNumber) {
-
-    const uniqueGuid = 'row-' + Utilities.generateGuid();
+function addRow(cardNumber, cardNickname) {
 
     Utilities.createElement(rowParent,
-        `<div class="card-row ${uniqueGuid}">
+        `<div class="card-row card-${cardNumber}">
             <label class="card-last-four">${cardNumber}</label>
-            <input class="card-nickname" placeholder="Nickname" />
+            <input class="card-nickname" placeholder="Nickname" value="${cardNickname}" />
          </div>`);
 
-    console.log('.' + uniqueGuid)
-
-    const newRow = document.querySelector(`.${uniqueGuid}`);
-
-    //const savedNickname = 
-
-    //return newRow;
-
-}
-
-function saveValues() {
-    rowList = document.querySelectorAll('.card-row');
-    console.log(rowList)
-    let cardData = [];
-    rowList.forEach((cardRow) => {
-        let card = {};
-        card.digits = cardRow.querySelector('.card-last-four').value;
-        card.nickname = cardRow.querySelector('.card-nickname').value;
-        console.log(card.digits)
-        if (card.digits || card.nickname) {
-            cardData.push(card);
-        }
-    })
-    console.log(cardData)
-    chrome.storage.sync.set({
-        cardData: cardData
-    }, () => {
-        console.log('object is ', cardData);
-    })
 }
 
 function saveValues() {
@@ -72,14 +47,12 @@ function saveValues() {
     console.log(cardList)
     let cardData = {};
     cardList.forEach((cardRow) => {
-        const nickname = cardRow.querySelector('.card-nickname').value;
-        let lastFourDigits = cardRow.querySelector('.card-last-four').textContent;
+        const cardDigits = Utilities.hash(cardRow.querySelector('.card-last-four').textContent);
+        const cardNickname = cardRow.querySelector('.card-nickname').value;
 
-        if(nickname) {
-            lastFourDigits = Utilities.hash(lastFourDigits);
-            cardData[lastFourDigits] = nickname;
+        if(cardNickname) {
+            cardData[cardDigits] = cardNickname;
         }
-
     })
     console.log(cardData)
     chrome.storage.sync.set({

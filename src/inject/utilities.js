@@ -34,15 +34,31 @@ var Utilities = (function () {
 
     const setCardNicknames = function (cardSectionSelector, cardNameSelector, cardDigitsSelector) {
         const cardNames = document.querySelectorAll(cardSectionSelector);
-        cardNames.forEach((card) => {
-            const cardName = card.querySelector(cardNameSelector);
-            const cardLastFour = card.querySelector(cardDigitsSelector).textContent;
 
-            console.log(cardName, cardLastFour)
+        chrome.storage.sync.get(['cardData'], (result) => {
+            console.log('savedData', result.cardData);
+            const {cardData} = result;
+            cardNames.forEach((card) => {
+                const cardName = card.querySelector(cardNameSelector);
 
-            cardName.textContent = getCardNickname(cardLastFour);
+                let cardLastFour = card.querySelector(cardDigitsSelector).textContent;
+                cardLastFour = hash(cardLastFour.replace('ending in ', ''));
+                console.log(cardName, cardLastFour)
 
+                
+                const cardNickname = cardData[cardLastFour];
+
+                if(cardNickname) {
+                    cardName.textContent = cardNickname;
+                }
+    
+    
+    
+            })
         })
+
+
+        
     }
 
     // makes array of card digits and returns

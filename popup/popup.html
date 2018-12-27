@@ -1,5 +1,4 @@
 <!doctype html>
-
 <html>
 
 <head>
@@ -8,10 +7,10 @@
 </head>
 
 <body>
+    <div class="js-contents-parent"></div>
+    <button class="btn js-save-values hidden save-btn">Save</button>
+    <span class="js-placeholder-text message-text">No cards found on this page.</span>
 
-    <div class="js-row-parent parent-row"></div>
-
-    <button class="btn js-save-values">Save</button>
 
     <script src="../src/vendor/forge-sha256.min.js"></script>
     <script src="../src/inject/utilities.js"></script>
@@ -19,3 +18,36 @@
 </body>
 
 </html>
+
+<style>
+.hidden {
+    display: none;
+}
+
+.message-text {
+    white-space: nowrap;
+    text-align: center;
+    padding: 2px 12px;
+}
+.card-row {
+    display: flex;
+    flex-direction: row;
+    padding: 5px 0px;
+}
+
+.card-last-four {
+    align-self: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.card-nickname {
+  padding: 4px 8px;
+  margin: 8px 0px 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+
+</style>

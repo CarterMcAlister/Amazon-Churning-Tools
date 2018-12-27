@@ -1,12 +1,13 @@
-// Utilities
-// IIFE injected before other scripts to be called by them.
+// Utilities - Shared helper methods
 var Utilities = (function () {
 
+    // Takes an HTML string and appends it to the specified DOM element
     var createElement = function (parentEl, html) {
         const createdElement = document.createRange().createContextualFragment(html);
         parentEl.appendChild(createdElement);
     }
 
+    // Polls element to see if it exists, resolves when element is found
     var whenElementReady = function (selector, delay) {
         return new Promise((resolve, reject) => {
             let el = document.querySelector(selector);
@@ -21,7 +22,7 @@ var Utilities = (function () {
                         resolve(element)
                     }, delay);
 
-                    //Once we have resolved we don't need the observer anymore.
+                    // Once we have resolved we don't need the observer anymore.
                     observer.disconnect();
                 });
             })
@@ -32,10 +33,8 @@ var Utilities = (function () {
         });
     }
 
-    
-
     return {
         createElement: createElement,
         whenElementReady: whenElementReady
     }
-})()
+})();

@@ -15,78 +15,27 @@ var Utilities = (function () {
                 resolve(el);
             }
             new MutationObserver((mutationRecords, observer) => {
-                    // Query for elements matching the specified selector
-                    Array.from(document.querySelectorAll(selector)).forEach((element) => {
-                        setTimeout(function () {
-                            resolve(element)
-                        }, delay);
+                // Query for elements matching the specified selector
+                Array.from(document.querySelectorAll(selector)).forEach((element) => {
+                    setTimeout(function () {
+                        resolve(element)
+                    }, delay);
 
-                        //Once we have resolved we don't need the observer anymore.
-                        observer.disconnect();
-                    });
-                })
-                .observe(document.documentElement, {
-                    childList: true,
-                    subtree: true
+                    //Once we have resolved we don't need the observer anymore.
+                    observer.disconnect();
                 });
+            })
+            .observe(document.documentElement, {
+                childList: true,
+                subtree: true
+            });
         });
     }
 
-    const setCardNicknames = function (cardSectionSelector, cardNameSelector, cardDigitsSelector) {
-        const cardNames = document.querySelectorAll(cardSectionSelector);
-
-        chrome.storage.sync.get(['cardData'], (result) => {
-            console.log('savedData', result.cardData);
-            const {cardData} = result;
-            cardNames.forEach((card) => {
-                const cardName = card.querySelector(cardNameSelector);
-
-                let cardLastFour = card.querySelector(cardDigitsSelector).textContent;
-                cardLastFour = forge_sha256(cardLastFour.replace('ending in ', ''));
-                console.log(cardName, cardLastFour)
-
-                
-                const cardNickname = cardData[cardLastFour];
-
-                if(cardNickname) {
-                    cardName.textContent = cardNickname;
-                }
     
-    
-    
-            })
-        })
-
-
-        
-    }
-
-    // makes array of card digits and returns
-    const getCardDigits = function (cardSectionSelector, cardDigitsSelector) {
-        const cards = document.querySelectorAll(cardSectionSelector);
-        let cardDigits = [];
-        cards.forEach((card) => {
-            const cardLastFour = card.querySelector(cardDigitsSelector).textContent.replace('ending in ', '');
-            cardDigits.push(cardLastFour);
-        })
-        
-        return cardDigits;
-    }
-
-    const generateGuid = () => Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 
     return {
         createElement: createElement,
-        whenElementReady: whenElementReady,
-        setCardNicknames: setCardNicknames,
-        generateGuid: generateGuid,
-        getCardDigits: getCardDigits
+        whenElementReady: whenElementReady
     }
 })()
-
-// Utilities Internal Functions
-
-function getCardNickname(lastFourString) {
-    const cardLastFour = lastFourString.replace('ending in ', '');
-    return cardLastFour;
-}

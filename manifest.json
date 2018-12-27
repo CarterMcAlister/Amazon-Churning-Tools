@@ -27,6 +27,7 @@
       "js": [
         "src/vendor/forge-sha256.min.js",
         "src/inject/utilities.js",
+        "src/inject/show-card-nicknames.js",
         "src/inject/automate-reloads.js"
       ]
     },
@@ -46,6 +47,7 @@
       "js": [
         "src/vendor/forge-sha256.min.js",        
         "src/inject/utilities.js",
+        "src/inject/show-card-nicknames.js",
         "src/inject/archive-orders.js"
       ]
     },

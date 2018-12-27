@@ -4,8 +4,6 @@ chrome.extension.sendMessage({}, function (response) {
 		if (document.readyState === "complete") {
 			clearInterval(readyStateCheckInterval);
 			
-            Utilities.setCardNicknames('.pmts-cc-detail', '.pmts-cc-issuer-name', '.pmts-cc-number');
-
 			const reloadPane = document.querySelector('#asv-manual-reload-form');
 
 			if (reloadPane) {
@@ -76,12 +74,3 @@ chrome.extension.sendMessage({}, function (response) {
 		}
 	}, 10);
 });
-
-function getCardDigits() {
-	const cardDigits = Utilities.getCardDigits('.pmts-cc-detail', '.pmts-cc-number');
-	console.log(cardDigits)
-	chrome.runtime.sendMessage({
-		action: "getCardDigits",
-		numbers: cardDigits
-	});
-}

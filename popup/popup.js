@@ -18,7 +18,7 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
         chrome.storage.sync.get(['cardData'], (result) => {
             console.log('savedData', result.cardData);
             request.numbers.forEach((cardNumber) => {
-                const cardHash = Utilities.hash(cardNumber);
+                const cardHash = Utilities.forge_sha256(cardNumber);
                 const cardNickname = result.cardData[cardHash] || '';
                 console.log(cardHash, cardNickname)
                 addRow(cardNumber, cardNickname);
@@ -47,11 +47,11 @@ function saveValues() {
     console.log(cardList)
     let cardData = {};
     cardList.forEach((cardRow) => {
-        const cardDigits = Utilities.hash(cardRow.querySelector('.card-last-four').textContent);
+        const cardDigitsHash = Utilities.forge_sha256(cardRow.querySelector('.card-last-four').textContent);
         const cardNickname = cardRow.querySelector('.card-nickname').value;
 
         if(cardNickname) {
-            cardData[cardDigits] = cardNickname;
+            cardData[cardDigitsHash] = cardNickname;
         }
     })
     console.log(cardData)

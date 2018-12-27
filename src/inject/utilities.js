@@ -42,7 +42,7 @@ var Utilities = (function () {
                 const cardName = card.querySelector(cardNameSelector);
 
                 let cardLastFour = card.querySelector(cardDigitsSelector).textContent;
-                cardLastFour = hash(cardLastFour.replace('ending in ', ''));
+                cardLastFour = forge_sha256(cardLastFour.replace('ending in ', ''));
                 console.log(cardName, cardLastFour)
 
                 
@@ -73,18 +73,12 @@ var Utilities = (function () {
         return cardDigits;
     }
 
-    const hash = function (value) {
-        return value.split('').reduce((prevHash, currVal) =>
-            (((prevHash << 5) - prevHash) + currVal.charCodeAt(0))|0, 0);     
-    }
-
     const generateGuid = () => Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 
     return {
         createElement: createElement,
         whenElementReady: whenElementReady,
         setCardNicknames: setCardNicknames,
-        hash: hash,
         generateGuid: generateGuid,
         getCardDigits: getCardDigits
     }

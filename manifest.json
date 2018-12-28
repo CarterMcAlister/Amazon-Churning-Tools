@@ -1,6 +1,6 @@
 {
   "name": "Amazon Churning Tools",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "manifest_version": 2,
   "description": "Automates repeated Amazon reloads, automates archiving reload orders, and allows card nicknames to be set.",
   "homepage_url": "http://placeholder.com",
@@ -53,7 +53,8 @@
     {
       "matches": [
         "https://www.amazon.com/cpe/managepaymentmethods*",
-        "https://www.amazon.com/gp/buy*"
+        "https://www.amazon.com/gp/buy*",
+        "https://*.amazon.com/asv/autoreload*"
       ],
       "js": [
         "src/vendor/forge-sha256.min.js",

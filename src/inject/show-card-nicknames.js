@@ -32,6 +32,11 @@ function setCardSectionSelectors() {
         cardSectionSelector = '.pmts-cc-detail';
         cardNameSelector = '.pmts-cc-issuer-name';
         cardDigitsSelector = '.pmts-cc-number';
+    } else if(document.querySelector('.pmts-instrument-box')) {
+        // Auto Reload Page
+        cardSectionSelector = '.pmts-instrument-box';
+        cardNameSelector = '.pmts-instrument-display-string';
+        cardDigitsSelector = '.pmts-inst-tail';
     }
 
     if(cardSectionSelector) {

@@ -41,7 +41,7 @@ function setCardSectionSelectors() {
     }
 }
 
-// Gets last four of cc and sends to extension popup
+// Gets last four of cc and sends to extension popup (called by popup.js)
 function getCardsOnPage() {
     const [ cardSectionSelector, cardDigitsSelector ] = setCardSectionSelectors();
 

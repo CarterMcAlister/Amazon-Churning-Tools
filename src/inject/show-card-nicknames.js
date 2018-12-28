@@ -52,7 +52,6 @@ function getCardsOnPage() {
         cardDigits.push( formatCardDigits(cardLastFour) );
     })
 
-    console.log(cardDigits)
 	chrome.runtime.sendMessage({
 		action: "getCardsOnPage",
 		numbers: cardDigits
@@ -64,15 +63,13 @@ function setCardNicknames(cardSectionSelector, cardDigitsSelector, cardNameSelec
     const cardNames = document.querySelectorAll(cardSectionSelector);
 
     chrome.storage.sync.get(['cardData'], (result) => {
-        console.log('savedData', result);
         const {cardData} = result;
         cardNames.forEach((card) => {
             const cardName = card.querySelector(cardNameSelector);
 
             const cardLastFour = card.querySelector(cardDigitsSelector).textContent;
             const cardLastFourHash = forge_sha256( formatCardDigits(cardLastFour) );
-            console.log(cardName, cardLastFourHash)
-
+            
             const cardNickname = cardData[cardLastFourHash];
 
             if(cardNickname) {

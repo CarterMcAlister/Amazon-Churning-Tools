@@ -13,18 +13,16 @@ function initialize() {
     })
 
     chrome.runtime.onMessage.addListener(function(request, sender) {
-        console.log(request)
         if (request.action == "getCardsOnPage" && request.numbers) {
             chrome.storage.sync.get(['cardData'], ({cardData}) => {
-                console.log('savedData', cardData);
                 request.numbers.forEach((cardNumber) => {
                     const cardHash = forge_sha256(cardNumber);
                     const cardNickname = cardData[cardHash] || '';
-                    console.log(cardHash, cardNickname)
+
                     addRow(cardNumber, cardNickname, parentNode);
                 })
             })
-            console.log(request.numbers)
+
             saveBtn.classList.remove('hidden');
             messageText.classList.add('hidden');
             
@@ -44,9 +42,8 @@ function addRow(cardNumber, cardNickname, parent) {
 
 // Saves object of card digits and nicknames to chrome storage
 function saveValues() {
-    console.log('saveval', document.querySelectorAll('.card-row'))
+
     const cardList = document.querySelectorAll('.card-row');
-    console.log(cardList)
     const cardData = {};
     cardList.forEach((cardRow) => {
         const cardDigitsHash = forge_sha256(cardRow.querySelector('.card-last-four').textContent);
@@ -56,11 +53,10 @@ function saveValues() {
             cardData[cardDigitsHash] = cardNickname;
         }
     })
-    console.log(cardData)
+
     chrome.storage.sync.set({
         cardData: cardData
     }, () => {
-        console.log('object is ', cardData);
         const messageText = document.querySelector('.js-placeholder-text');
         messageText.textContent = 'Card Nicknames Saved!';
         messageText.classList.remove('hidden');

@@ -54,9 +54,7 @@ function saveValues() {
         }
     })
 
-    chrome.storage.sync.set({
-        cardData: cardData
-    }, () => {
+    chrome.storage.sync.set({ cardData: cardData }, () => {
         const messageText = document.querySelector('.js-placeholder-text');
         messageText.textContent = 'Card Nicknames Saved!';
         messageText.classList.remove('hidden');

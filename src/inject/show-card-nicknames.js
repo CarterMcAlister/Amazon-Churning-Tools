@@ -39,11 +39,7 @@ function setCardSectionSelectors() {
         cardDigitsSelector = '.pmts-inst-tail';
     }
 
-    if(cardSectionSelector) {
-        return [cardSectionSelector, cardDigitsSelector, cardNameSelector]
-    } else {
-        return [];
-    }
+    return [cardSectionSelector, cardDigitsSelector, cardNameSelector];
 }
 
 // Gets last four of cc and sends to extension popup (called by popup.js)

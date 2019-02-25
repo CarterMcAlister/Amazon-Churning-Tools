@@ -1,6 +1,6 @@
 # Amazon-Churning-Tools
 
-##What is this?
+### What is this?
 This is a Chrome extension that provides several useful features on amazon.com for credit card or bank account churning.
 This extension allows you to:
 - Add names to your credit/debit cards on amazon, and view the names when selecting a card to pay with.
